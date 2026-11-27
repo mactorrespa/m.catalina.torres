@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10110f">
+  <meta name="description" content="M. Catalina Torres works in set theory, infinite combinatorics, and large cardinals. Biography, publications, talks, and field notes.">
+  <title>M. Catalina Torres · Set Theory</title>
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+  <!--
+    EDITING THIS WEBSITE
+    Open this HTML file in a text editor. Search for EDIT below to jump between sections.
+    Keep the assets folder beside index.html. Upload both to the root of your GitHub repository.
+    All content, styles, and interaction code live in this file. No build is needed.
+  -->
+  <style>
+    /* EDIT • Local typefaces. The final names in each font stack also work offline. */
+    @font-face { font-family: Cormorant; src: url("assets/cormorant-medium.woff") format("woff"); font-style: normal; font-weight: 500; font-display: swap; }
+    @font-face { font-family: Cormorant; src: url("assets/cormorant-semibold.woff") format("woff"); font-style: normal; font-weight: 600; font-display: swap; }
+    @font-face { font-family: "Plex Mono"; src: url("assets/plex-mono.woff") format("woff"); font-style: normal; font-weight: 400; font-display: swap; }
+    :root {
+      color-scheme: dark;
+      --background: #10110f;
+      --gold: #bd9e62;
+      --divider-color: #ab894f; /* EDIT • Gold lines on either side of the name. */
+      --divider-thickness: 4px;
+      --ink: #ede9df;
+      --copy: #d0cfc6;
+      --muted: #b1afa2;
+      --border: rgba(183, 161, 109, .27);
+      --panel: rgba(33, 34, 29, .71); /* EDIT • Card tint and transparency. */
+      --body-font: "Plex Mono", "Courier New", monospace;
+      --title-font: Cormorant, Garamond, Georgia, serif;
+      --content-width: 1320px;
+      --left-column: 7fr; /* EDIT • 7fr / 3fr gives a 70/30 split. */
+      --right-column: 3fr;
+      --header-height: 72px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-height) + 20px); }
+    body { margin: 0; background: var(--background); color: var(--copy); font: 1rem/1.75 var(--body-font); overflow-wrap: break-word; }
+    .shell { width: min(calc(100% - clamp(32px, 9vw, 150px)), var(--content-width)); margin-inline: auto; }
+    #corner-graphs { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+    body { isolation: isolate; }
+    h1, h2, h3, p, figure, ol, ul { margin: 0; }
+    h1, h2, h3 { font-family: var(--title-font); color: var(--ink); font-weight: 500; }
+    img { display: block; max-width: 100%; }
+    a { color: #d4b480; text-decoration-color: #716246; text-underline-offset: .2em; text-decoration-thickness: 1px; }
+    a:hover { color: #f0d49e; text-decoration-color: currentColor; }
+    a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid #edca83; outline-offset: 5px; }
+    button, input { font: inherit; }
+    button, summary { cursor: pointer; }
+    .glyphs { position: absolute; width: 0; height: 0; overflow: hidden; }
+    .icon { width: 1.15em; height: 1.15em; fill: none; stroke: currentColor; stroke-width: 1.45; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+    .skip { position: fixed; top: 8px; left: 12px; padding: .4rem 1rem; background: var(--background); z-index: 20; transform: translateY(-160%); }
+    .skip:focus { transform: none; }
+    .bar { position: sticky; top: 0; z-index: 8; background: rgba(15,16,14,.95); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(183,161,109,.19); }
+    .bar-inner { min-height: var(--header-height); display: flex; align-items: center; gap: clamp(12px, 3.6vw, 70px); }
+    .brand { display: inline-flex; gap: 12px; align-items: center; font: 500 1.8rem/1 var(--title-font); letter-spacing: .06em; text-decoration: none; color: var(--ink); }
+    .brand img { width: 34px; height: 36px; }
+    nav { margin-left: auto; display: flex; gap: clamp(15px, 2.5vw, 44px); align-items: center; }
+    nav a, .cv-link { font-size: .8rem; line-height: 1.3; letter-spacing: .085em; text-transform: uppercase; text-decoration: none; white-space: nowrap; }
+    nav a { position: relative; color: var(--copy); padding: 12px 0; }
+    nav a[aria-current] { color: #dfc18a; }
+    nav a[aria-current]::after { content: ""; position: absolute; bottom: 4px; left: 0; right: 0; height: 1px; background: #a68b55; }
+    .cv-link { padding: 9px 14px; border: 1px solid #79643e; border-radius: 5px; color: #dec798; display: inline-flex; align-items: center; gap: 9px; }
+    .cv-link:hover, .btn:hover { background: rgba(187,156,99,.1); }
+    .menu-toggle { display: none; }
+    /* EDIT • Banner height, edge fade, rounding, and the image's focal point. */
+    .banner { margin-top: clamp(16px, 2vw, 32px); height: clamp(235px, 23vw, 333px); position: relative; overflow: hidden; border-radius: 12px; background: #141512; box-shadow: 0 0 0 1px rgba(176,152,99,.19); }
+    .banner img { width: 100%; height: calc(100% + 64px); max-width: none; position: absolute; inset: -4px 0 auto; object-fit: cover; object-position: 50% 32%; transform: translateY(var(--banner-offset,0px)); }
+    .banner::after { content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none; background: linear-gradient(90deg,rgba(16,17,15,.78),transparent 11%,transparent 89%,rgba(16,17,15,.78)),linear-gradient(0deg,rgba(16,17,15,.85),transparent 19%,transparent 90%,rgba(16,17,15,.3)); }
+    .identity { position: relative; display: grid; grid-template-columns: clamp(12px,4.4vw,76px) minmax(0,max-content) minmax(12px,1fr) clamp(90px,10.2vw,148px) clamp(10px,3vw,44px); align-items: center; column-gap: clamp(10px,2vw,32px); margin-top: 8px; min-height: clamp(120px,10.2vw,154px); }
+    .name-block { padding-block: 10px 18px; }
+    h1 { font-size: clamp(3rem,5.15vw,5.1rem); line-height: 1.07; letter-spacing: -.045em; }
+    .discipline { margin-top: .65rem; font-size: .79rem; line-height: 1.55; letter-spacing: .15em; text-transform: uppercase; color: #d1b47d; }
+    .discipline span { padding-inline: .35em; color: #ac8e52; }
+    .rule { position: relative; height: var(--divider-thickness); margin-bottom: 20px; background: linear-gradient(90deg,transparent,var(--divider-color) 35%,var(--divider-color) 65%,transparent); }
+    .rule.short { background: linear-gradient(90deg,var(--divider-color),transparent); }
+    .rule.short::before, .rule.long::after { content: ""; position: absolute; left: 0; top: 50%; transform: translate(-50%,-50%) rotate(45deg); width: 6px; height: 6px; background: var(--divider-color); }
+    .rule.long::after { left: 50%; }
+    .portrait { width: 100%; padding: 6px; margin-top: clamp(-64px,-4vw,-32px); border: 1px solid #a68c56; border-radius: 9px; background: #171814; box-shadow: 0 5px 19px #08090780; }
+    .portrait img { width: 100%; height: auto; aspect-ratio: 1/1; object-fit: cover; object-position: center 35%; border-radius: 4px; filter: grayscale(1) sepia(.13); } /* Remove the filter for full colour. */
+    /* The page has ONE scrollbar. A shorter column rests when its bottom comes into view. */
+    .columns { display: grid; grid-template-columns: minmax(0,var(--left-column)) minmax(0,var(--right-column)); gap: clamp(18px,2.3vw,37px); align-items: start; padding-top: 5px; }
+    .academic, .notebook { min-width: 0; display: grid; gap: 20px; align-self: start; }
+    @media (min-width: 821px) {
+      .academic, .notebook { position: sticky; top: var(--pin-top,auto); }
+    }
+    .panel { border: 1px solid var(--border); border-radius: 10px; background: var(--panel); backdrop-filter: blur(9px); padding: clamp(23px,2.25vw,35px); }
+    .panel-head { display: flex; gap: 13px; align-items: center; margin-bottom: 18px; }
+    h2 { font-size: clamp(1.85rem,2.55vw,2.65rem); line-height: 1.05; letter-spacing: -.032em; }
+    .panel-head .icon { color: var(--gold); width: 23px; height: 23px; }
+    .panel-head::after, .notes-head::after { content: ""; height: 1px; flex: 1; margin-left: 2px; background: linear-gradient(90deg,var(--border),transparent); }
+    .panel p + p { margin-top: .9rem; }
+    .bio { background: linear-gradient(113deg, rgba(41,42,35,.73), rgba(27,29,25,.62)); }
+    .bio p { max-width: 74ch; }
+    .math { font-family: Georgia, serif; color: inherit; white-space: nowrap; font-style: italic; }
+    .math sub { font-size: .7em; vertical-align: -.24em; }
+    .notebook { gap: 16px; }
+    .notes-head { display: flex; align-items: center; gap: 11px; padding: 1px 0 0; }
+    .notes-head h2 { font-size: 2rem; }
+    .notes-head .icon { color: var(--gold); width: 21px; height: 21px; }
+    .note { margin: 0; border-radius: 9px; overflow: hidden; border: 1px solid var(--border); background: rgba(29,30,25,.85); }
+    .note img { width: 100%; aspect-ratio: 2.1; object-fit: cover; }
+    .note.print img { aspect-ratio: auto; max-height: 440px; object-position: 50% 42%; }
+    .note figcaption { padding: 17px 19px 19px; }
+    .eyebrow, .date { color: #c1a670; text-transform: uppercase; font-size: .79rem; letter-spacing: .08em; }
+    .note h3, .entry h3 { font-size: 1.55rem; line-height: 1.18; }
+    .note h3 { margin: 4px 0 7px; }
+    .note h3 a { color: var(--ink); text-decoration: none; }
+    .note h3 a:hover { color: #e3c48f; text-decoration: underline; }
+    .note p, .note-link, .support { font-size: .90rem; line-height: 1.65; }
+    .note-link { display: inline-block; margin-top: 10px; }
+    .record-list { list-style: none; padding: 0; }
+    .entry { padding-block: 17px; border-top: 1px solid rgba(183,161,109,.15); }
+    .entry:first-child { border-top: 0; padding-top: 0; }
+    .entry:last-child { padding-bottom: 0; }
+    .entry .date { display: block; margin-bottom: 4px; }
+    .entry p { margin-top: 6px; }
+    .entry h3 a { color: var(--ink); }
+    .support { color: var(--muted); }
+    .more { border-top: 1px solid var(--border); margin-top: 20px; padding-top: 14px; }
+    summary { color: #d7ba88; font-size: .95rem; width: fit-content; }
+    details[open] > summary { margin-bottom: 15px; }
+    .compact { padding-left: 20px; }
+    .compact li { margin-block: 8px; }
+    .slim { font-size: .92rem; }
+    .note-text { padding: 21px; }
+    footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; padding: 24px 0 32px; margin-top: 36px; border-top: 1px solid var(--border); color: var(--muted); font-size: .81rem; }
+    .foot-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; }
+    .text-button { border: 0; padding: 0; background: transparent; color: #cdb182; font: inherit; text-decoration: underline; text-underline-offset: .2em; }
+    .text-button:hover { color: #f0d49e; }
+    dialog { width: min(520px,calc(100% - 32px)); max-height: 88dvh; overflow: auto; padding: clamp(20px,4vw,32px); border: 1px solid #8b7650; border-radius: 10px; background: #20221d; color: var(--copy); }
+    dialog::backdrop { background: rgba(0,0,0,.72); }
+    dialog h2 { font-size: 2.4rem; }
+    dialog p { margin: 12px 0; }
+    dialog label { display: block; margin-top: 14px; }
+    dialog input { display: block; width: 100%; color: var(--ink); background: #161813; border: 1px solid var(--border); padding: 8px; border-radius: 4px; font-size: .88rem; }
+    dialog input[type=file] { margin-top: 4px; }
+    dialog input[type=text] { margin-top: 6px; }
+    .dialog-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .btn { padding: 7px 13px; font-size: .89rem; border-radius: 5px; border: 1px solid #90764a; color: #dfc79e; background: transparent; }
+    .btn.close { margin-left: auto; }
+    .status { color: #dabc8c; font-size: .87rem; }
+    @media (max-width: 820px) {
+      :root { --header-height: 62px; }
+      .columns { display: flex; flex-direction: column; gap: 30px; }
+      .academic, .notebook { width: 100%; }
+      .bar-inner { gap: 14px; position: relative; }
+      .brand { margin-right: auto; }
+      nav { gap: 15px; }
+      nav a, .cv-link { letter-spacing: .035em; }
+      .identity { min-height: 118px; grid-template-columns: 16px minmax(0,max-content) minmax(5px,1fr) 92px 8px; gap: 12px; }
+      .name-block { padding-bottom: 10px; }
+      .discipline { font-size: .75rem; }
+      .note img { max-height: 270px; }
+    }
+    @media (max-width: 650px) {
+      .brand { font-size: 1.55rem; gap: 8px; }
+      .brand img { width: 29px; }
+      .bar-inner { flex-wrap: wrap; gap: 0 15px; }
+      nav { order: 5; width: 100%; margin: 0; padding: 0 0 8px; flex-wrap: wrap; justify-content: space-between; gap: 6px 13px; }
+      body.enhanced nav { position: absolute; top: 100%; background: #191b17; border: 1px solid var(--border); border-radius: 0 0 8px 8px; padding: 10px 16px; display: grid; justify-content: stretch; gap: 0; }
+      body.enhanced nav[hidden] { display: none; }
+      body.enhanced .menu-toggle { display: inline-flex; align-items: center; gap: 6px; padding: 8px 2px; font-size: .875rem; color: var(--ink); background: transparent; border: 0; }
+      nav a[aria-current]::after { right: auto; width: 2.5em; }
+      .cv-link { padding: 7px 10px; }
+      .banner { margin-top: 13px; height: clamp(165px,40vw,225px); border-radius: 8px; }
+      .identity { grid-template-columns: minmax(0,1fr) clamp(65px,17vw,90px); gap: 9px; padding-block: 8px 13px; border-bottom: 1px solid var(--border); margin: 0 0 18px; min-height: 105px; }
+      .identity .rule { display: none; }
+      h1 { font-size: clamp(2.05rem,7.9vw,3rem); }
+      .discipline { font-size: .68rem; letter-spacing: .075em; margin-top: 5px; }
+      .portrait { margin-top: -24px; padding: 4px; }
+      .panel { padding: 21px 19px; }
+      .panel-head { margin-bottom: 14px; }
+      .academic { gap: 14px; }
+      footer { align-items: flex-start; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .banner img { transform: none; }
+    }
+  </style>
+</head>
+<body id="top">
+  <a class="skip" href="#about">Skip to biography</a>
+  <canvas id="corner-graphs" aria-hidden="true"></canvas>
+  <!-- Reusable, decorative line icons. Their labels are provided by the surrounding text. -->
+  <svg xmlns="http://www.w3.org/2000/svg" class="glyphs" aria-hidden="true">
+    <symbol id="quill" viewBox="0 0 24 24"><path d="M3 21c4-7 7-11 15-16M7 16c-2-4 0-7 4-10 3-2 7-3 10-3-1 5-4 11-9 14-2 1-4 1-5-1Z"/><path d="m12 13 4 .1M13 9V6"/></symbol>
+    <symbol id="book" viewBox="0 0 24 24"><path d="M2.5 4.8C6 4 9 4.5 12 6.5c3-2 6-2.5 9.5-1.7v14.4c-3.5-.9-6.5-.3-9.5 1.6-3-1.9-6-2.5-9.5-1.6Z"/><path d="M12 6.5v14"/></symbol>
+    <symbol id="grad" viewBox="0 0 24 24"><path d="m1 8 11-5 11 5-11 5L1 8Zm4 2v6c4 4 10 4 14 0v-6m3-1v7"/></symbol>
+    <symbol id="paper" viewBox="0 0 24 24"><path d="M5 2h9l5 5v15H5zM14 2v6h5M8 12h8m-8 4h8"/></symbol>
+    <symbol id="talk-icon" viewBox="0 0 24 24"><path d="M3 3h18v14H3zM12 17v4m-4 1 4-2 4 2M7 13l4-5 3 2 3-4"/></symbol>
+    <symbol id="mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m3 6 9 7 9-7"/></symbol>
+    <symbol id="menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+  </svg>
+  <header class="bar">
+    <div class="bar-inner shell">
+      <a class="brand" href="#top" aria-label="M. Catalina Torres, home"><img src="assets/mark.svg" alt="">MCT</a>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="nav"><svg class="icon" aria-hidden="true"><use href="#menu"/></svg> Menu</button>
+      <!-- EDIT • Each link points to a section with the matching id below. -->
+      <nav id="nav" aria-label="Main navigation">
+        <a href="#about" aria-current="location">About me</a>
+        <a href="#education">Education</a>
+        <a href="#publications">Publications</a>
+        <a href="#talks">Talks</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="cv-link" href="assets/CV-M-Catalina-Torres.pdf" download="CV-M-Catalina-Torres.pdf" aria-label="Download academic CV as a PDF"><svg class="icon" aria-hidden="true"><use href="#paper"/></svg> CV</a>
+    </div>
+  </header>
+  <main class="shell">
+    <!-- EDIT • BANNER: replace the image path and its alt text. Scroll motion is set in the script. -->
+    <div class="banner"><img id="banner-photo" src="assets/night-landscape.webp" alt="An engraved mountain range and lake beneath a crescent moon and a starry sky" fetchpriority="high"></div>
+    <div class="identity">
+      <span class="rule short" aria-hidden="true"></span>
+      <div class="name-block">
+        <h1>M. Catalina Torres</h1>
+        <p class="discipline">Set theory <span aria-hidden="true">/</span> Infinite combinatorics</p>
+      </div>
+      <span class="rule long" aria-hidden="true"></span>
+      <!-- EDIT • PORTRAIT: use a square image for the closest fit. -->
+      <div class="portrait"><img id="profile-photo" src="assets/portrait.jpg" width="139" height="140" alt="Portrait of M. Catalina Torres"></div>
+      <span class="rule" aria-hidden="true"></span>
+    </div>
+
+    <div class="columns">
+      <div class="academic">
+        <!-- EDIT • BIOGRAPHY: write in the first person. Links and mathematical subscripts work in all sections. -->
+        <section id="about" class="panel bio" aria-labelledby="about-heading">
+          <div class="panel-head"><svg class="icon" aria-hidden="true"><use href="#quill"/></svg><h2 id="about-heading">About me</h2></div>
+          <p>I’m a PhD candidate in mathematics at the <a href="https://www.ub.edu/">University of Barcelona</a>, working with Joan Bagaria. I’m based in Vienna, where I’m a project assistant in the Computational Logic group at <a href="https://www.tuwien.at/en/">TU Wien</a>.</p>
+          <p>My research is in set theory. I study higher stationarity on two cardinals, how stationary sets reflect, and how these questions connect to large cardinals and to topology.</p>
+        </section>
+
+        <!-- EDIT • EDUCATION: copy a complete li.entry to add a degree. -->
+        <section id="education" class="panel" aria-labelledby="education-heading">
+          <div class="panel-head"><svg class="icon" aria-hidden="true"><use href="#grad"/></svg><h2 id="education-heading">Education</h2></div>
+          <ol class="record-list">
+            <li class="entry"><span class="date">2022 — Present</span><h3>PhD in Mathematics and Computer Science</h3><p>University of Barcelona, Spain</p><p class="support">Thesis: Infinite Combinatorics on <span class="math">𝒫<sub>κ</sub>(λ)</span>. Advisor: Joan Bagaria Pigrau.</p></li>
+            <li class="entry"><span class="date">2020 — 2022</span><h3>Master’s in Pure and Applied Logic</h3><p>University of Barcelona, Spain</p><p class="support">Thesis: <a href="https://diposit.ub.edu/dspace/bitstream/2445/189745/1/TFM_Catalina_Torres.pdf">Stationary Reflection on <span class="math">𝒫<sub>κ</sub>(λ)</span></a>. Advisor: Joan Bagaria Pigrau.</p></li>
+            <li class="entry"><span class="date">2012 — 2018</span><h3>Bachelor’s in Mathematics</h3><p>National University of Colombia, Bogotá</p><p class="support">Thesis: Knot Classification through Counting Finite Group Homomorphisms. Advisor: Mauricio López Hernández.</p></li>
+          </ol>
+          <details class="more"><summary>Research stays &amp; funding</summary>
+            <ul class="compact slim">
+              <li><b>Vienna, 2025–26.</b> Modal logics and generalised stationarity with Juan Aguilera at TU Wien, supported by an Ernst Mach Grant worldwide.</li>
+              <li><b>Tokyo, 2025.</b> Two visits with Hiroshi Sakai at the University of Tokyo on higher stationarity and its consistency strength.</li>
+              <li><b>Hamburg, 2025.</b> Combinatorial set theory with Philipp Lücke at the University of Hamburg.</li>
+              <li><b>Kobe, 2023.</b> Infinite combinatorics in the two-cardinal setting with Hiroshi Sakai at Kobe University.</li>
+            </ul>
+          </details>
+        </section>
+
+        <!-- EDIT • PUBLICATIONS: update titles, authors, venue, status, and persistent URLs here. -->
+        <section id="publications" class="panel" aria-labelledby="papers-heading">
+          <div class="panel-head"><svg class="icon" aria-hidden="true"><use href="#paper"/></svg><h2 id="papers-heading">Publications &amp; preprints</h2></div>
+          <ol class="record-list">
+            <li class="entry"><span class="date">2026 · Preprint</span><h3><a href="https://arxiv.org/abs/2607.16563">On 2-stationarity of <span class="math">𝒫<sub>κ</sub>λ</span></a></h3><p class="support">Hiroshi Sakai and M. Catalina Torres · arXiv:2607.16563</p></li>
+            <li class="entry"><span class="date">2024 · Revised 2025</span><h3><a href="https://arxiv.org/abs/2402.00805">Higher stationarity and derived topologies on <span class="math">𝒫<sub>κ</sub>(A)</span></a></h3><p class="support">M. Catalina Torres · Accepted for publication in the Israel Journal of Mathematics.</p></li>
+            <li class="entry"><span class="date">2024 · Proceedings</span><h3><a href="https://www.kurims.kyoto-u.ac.jp/~kyodo/kokyuroku/contents/pdf/2290-04.pdf">Hyperstationary subsets of <span class="math">𝒫<sub>κ</sub>λ</span></a></h3><p class="support">M. Catalina Torres · Large Cardinals and the Continuum, RIMS Kôkyûroku, vol. 2290.</p></li>
+          </ol>
+        </section>
+
+        <!-- EDIT • TALKS: keep recent talks visible and put older talks inside details. -->
+        <section id="talks" class="panel" aria-labelledby="talks-heading">
+          <div class="panel-head"><svg class="icon" aria-hidden="true"><use href="#talk-icon"/></svg><h2 id="talks-heading">Selected talks</h2></div>
+          <ol class="record-list">
+            <li class="entry"><span class="date">9 September 2026 · Vienna</span><h3><a href="https://www.esi.ac.at/events/t3374/">Menas Theorem and Strong Compactness on <span class="math">P<sub>κ</sub>(λ)</span></a></h3><p class="support">FLINTA* in Set Theory, Erwin Schrödinger International Institute.</p></li>
+            <li class="entry"><span class="date">2 June 2026 · Bogotá</span><h3>Large Cardinals and Derived Topologies</h3><p class="support">Simposio Latinoamericano de Lógica Matemática, Universidad de los Andes.</p></li>
+            <li class="entry"><span class="date">20 May 2026 · Helsinki</span><h3>High Stationarity on <span class="math">P<sub>κ</sub>(λ)</span> and Strong Compactness</h3><p class="support">European Set Theory Conference, University of Helsinki.</p></li>
+          </ol>
+          <details class="more"><summary>Earlier talks</summary>
+            <ul class="compact slim">
+              <li>Reflecting Stationary Sets on Two Cardinals · TU Wien, March 2026.</li>
+              <li>Strong Compactness and 2-stationary sets of <span class="math">P<sub>κ</sub>(A)</span> · Waseda University, July 2025.</li>
+              <li>Characterising Hyper-stationary Sets on <span class="math">P<sub>κ</sub>(A)</span> · Kobe University, May 2025.</li>
+              <li>A Topological Approach to Characterising Hyper-stationary Sets on <span class="math">P<sub>κ</sub>(A)</span> · CUNY Graduate Center, April 2025.</li>
+            </ul>
+          </details>
+        </section>
+        <section id="contact" class="panel" aria-labelledby="contact-heading">
+          <div class="panel-head"><svg class="icon" aria-hidden="true"><use href="#mail"/></svg><h2 id="contact-heading">Contact</h2></div>
+          <!-- EDIT • Change both the visible email and the mailto address. -->
+          <p>You can reach me at <a href="mailto:mactorrespa@gmail.com">mactorrespa@gmail.com</a>.</p>
+        </section>
+      </div>
+
+      <!-- EDIT • FIELD NOTES (right column). Copy a figure for a picture and caption,
+           or an article for a text link. Add as many as you like. -->
+      <aside class="notebook" aria-labelledby="notebook-heading">
+        <div class="notes-head"><svg class="icon" aria-hidden="true"><use href="#book"/></svg><h2 id="notebook-heading">Field notes</h2></div>
+        <figure class="note">
+          <img src="assets/vienna-opera.webp" width="1000" height="745" alt="Horse-drawn trams passing the Vienna State Opera in a nineteenth-century photochrom" style="height:auto; aspect-ratio:2.15; object-position:50% 47%">
+          <figcaption><span class="eyebrow">Vienna, Austria</span><h3><a href="https://www.loc.gov/item/2002708423/">Along the Ringstrasse</a></h3>
+            <p>A view of the State Opera near TU Wien, in a photochrom from around 1900.</p>
+            <a class="note-link" href="https://www.loc.gov/item/2002708423/">View archival photograph</a>
+          </figcaption>
+        </figure>
+        <figure class="note print">
+          <img src="assets/saruwaka-night.webp" width="657" height="1000" loading="lazy" alt="A full moon above pedestrians and theatre rooftops in Hiroshige’s print of Edo">
+          <figcaption><span class="eyebrow">Tokyo, Japan</span><h3><a href="https://www.loc.gov/item/2008660961/">An evening in Edo</a></h3>
+            <p>Utagawa Hiroshige’s <i>Night View of Saruwaka-machi</i> (1856), from his series of views of the city now known as Tokyo.</p>
+            <a class="note-link" href="https://www.loc.gov/item/2008660961/">View woodblock print</a>
+          </figcaption>
+        </figure>
+        <article class="note note-text">
+          <span class="eyebrow">Community</span><h3><a href="https://www.tuwien.at/en/mg/femma">fem*MA at TU Wien</a></h3>
+          <p>I’m part of the PR and newsletter team for the network of women* in mathematics at TU Wien.</p>
+          <a class="note-link" href="https://www.tuwien.at/en/mg/femma">News and events</a>
+        </article>
+      </aside>
+    </div>
+    <footer>
+      <span>© M. Catalina Torres</span>
+      <div class="foot-tools">
+        <button type="button" class="text-button" id="edit-pictures" hidden>Edit photos</button>
+        <a href="#top">Back to top</a>
+      </div>
+    </footer>
+  </main>
+
+  <!-- The optional photo editor runs entirely in the browser. Save HTML embeds the
+       selected pictures into a new editable index.html. Keep the assets folder beside it. -->
+  <dialog id="photo-editor" aria-labelledby="editor-title" aria-describedby="editor-help">
+    <h2 id="editor-title">Edit photos</h2>
+    <p class="support" id="editor-help">Choose a banner or portrait to preview on this page. Save HTML downloads a copy with your changes. Keep the downloaded page beside the assets folder.</p>
+    <form id="photos-form">
+      <label for="banner-file">Banner image</label>
+      <input id="banner-file" type="file" accept="image/jpeg,image/png,image/webp">
+      <label for="banner-alt" class="support">Banner description</label>
+      <input id="banner-alt" type="text">
+      <label for="portrait-file">Profile picture</label>
+      <input id="portrait-file" type="file" accept="image/jpeg,image/png,image/webp">
+      <label for="portrait-alt" class="support">Portrait description</label>
+      <input id="portrait-alt" type="text">
+      <p role="status" id="photo-status" class="status"></p>
+      <div class="dialog-actions">
+        <button class="btn" type="submit" value="preview">Preview</button>
+        <button class="btn" type="submit" value="save">Save HTML</button>
+        <button class="btn close" type="button" id="close-editor">Close</button>
+      </div>
+    </form>
+  </dialog>
+  <script>
+    (() => {
+      "use strict";
+      // Keep a clean copy so the photo editor preserves comments and original formatting.
+      const originalHTML = "<!doctype html>\n" + document.documentElement.outerHTML;
+      const byId = (id) => document.getElementById(id);
+      const media = window.matchMedia("(max-width: 650px)");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const menu = byId("nav");
+      const menuButton = byId("menu-toggle");
+      document.body.classList.add("enhanced");
+      function setMenu(open) {
+        menu.hidden = media.matches && !open;
+        menuButton.setAttribute("aria-expanded", String(media.matches && open));
+      }
+      setMenu(false);
+      media.addEventListener("change", () => setMenu(false));
+      menuButton.addEventListener("click", () => setMenu(menu.hidden));
+      menu.addEventListener("click", (event) => {
+        const link = event.target.closest("a");
+        if (!link) return;
+        setMenu(false);
+        if (media.matches) {
+          const section = byId(link.hash.slice(1));
+          section.setAttribute("tabindex", "-1");
+          section.focus({ preventScroll: true });
+        }
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && media.matches && !menu.hidden) {
+          setMenu(false);
+          menuButton.focus();
+        }
+      });
+
+      // EDIT • Background graph. Coordinates are measured inward from a corner.
+      // Each pair in edges connects two points. Change the gold hue at :root.
+      const canvas = byId("corner-graphs");
+      function drawGraphs() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.round(width * pixelRatio);
+        canvas.height = Math.round(height * pixelRatio);
+        const context = canvas.getContext("2d");
+        if (!context) return;
+        context.scale(pixelRatio, pixelRatio);
+        const tint = getComputedStyle(document.documentElement).getPropertyValue("--gold").trim();
+        const nodes = [[-12,0],[38,16],[82,56],[112,113],[149,83],[198,122],[162,185],
+                       [67,124],[51,180],[94,204],[5,92],[205,210],[252,148],[19,244],[130,252]];
+        const edges = [[0,1],[1,2],[2,3],[2,4],[4,5],[3,6],[3,7],[7,8],[7,9],
+                       [1,10],[6,11],[5,12],[8,13],[6,14]];
+        const corners = [[-5,60,1,1,1.1],[width+4,60,-1,1,.94],
+                         [-3,height-7,1,-1,1.25],[width,height+5,-1,-1,1.4]];
+        for (const [x,y,xDirection,yDirection,scale] of corners) {
+          const size = Math.min(width/970,1) * scale;
+          context.save();
+          context.translate(x,y);
+          context.scale(xDirection*size,yDirection*size);
+          context.strokeStyle = tint;
+          context.fillStyle = tint;
+          context.lineWidth = .9;
+          for (const [a,b] of edges) {
+            context.globalAlpha = .38 * (1 - nodes[b][0]/325);
+            context.beginPath();
+            context.moveTo(...nodes[a]);
+            context.lineTo(...nodes[b]);
+            context.stroke();
+          }
+          for (const [px,py] of nodes) {
+            context.globalAlpha = .65 * (1 - px/350);
+            context.beginPath();
+            context.arc(px,py,1.9,0,Math.PI*2);
+            context.fill();
+          }
+          context.restore();
+        }
+      }
+      const navLinks = Array.from(menu.querySelectorAll("a"));
+      const sections = navLinks.map((link) => byId(link.hash.slice(1)));
+      const banner = byId("banner-photo");
+      const header = document.querySelector(".bar");
+      let ticking = false;
+      function updateScroll() {
+        // EDIT • Increase 0.09 for more parallax. The 30px limit keeps edges covered.
+        const shift = reduceMotion.matches ? 0 : Math.min(30, Math.max(0, window.scrollY * .09));
+        banner.style.setProperty("--banner-offset", (-shift).toFixed(1) + "px");
+        const atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+        let active = atBottom ? sections.length - 1 : 0;
+        if (!atBottom) {
+          const marker = header.offsetHeight + 40;
+          sections.forEach((section,index) => {
+            if (section.getBoundingClientRect().top <= marker) active = index;
+          });
+        }
+        navLinks.forEach((link,index) => {
+          if (index === active) link.setAttribute("aria-current","location");
+          else link.removeAttribute("aria-current");
+        });
+        ticking = false;
+      }
+      function queueScrollUpdate() {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(updateScroll);
+        }
+      }
+      // A short column stays at the header. A tall column scrolls normally until
+      // its bottom reaches the viewport bottom. The longer column then carries on.
+      const columns = document.querySelectorAll(".academic, .notebook");
+      function measureColumns() {
+        for (const column of columns) {
+          const top = Math.min(header.offsetHeight + 16, window.innerHeight - column.offsetHeight - 16);
+          column.style.setProperty("--pin-top", top + "px");
+        }
+        queueScrollUpdate();
+      }
+      window.addEventListener("resize", () => { drawGraphs(); measureColumns(); });
+      if ("ResizeObserver" in window) {
+        const observer = new ResizeObserver(measureColumns);
+        columns.forEach((column) => observer.observe(column));
+      }
+      window.addEventListener("load", measureColumns);
+      window.addEventListener("scroll", queueScrollUpdate, { passive: true });
+      reduceMotion.addEventListener("change", queueScrollUpdate);
+      drawGraphs();
+      measureColumns();
+
+      // Optional owner tools: local preview, or export both photo choices into HTML.
+      const editor = byId("photo-editor");
+      const openEditor = byId("edit-pictures");
+      const form = byId("photos-form");
+      const status = byId("photo-status");
+      const portraits = [
+        { image: banner, file: byId("banner-file"), alt: byId("banner-alt"), maxSize: 2400 },
+        { image: byId("profile-photo"), file: byId("portrait-file"), alt: byId("portrait-alt"), maxSize: 720 }
+      ];
+      openEditor.hidden = typeof editor.showModal !== "function";
+      openEditor.addEventListener("click", () => {
+        portraits.forEach((item) => { item.file.value = ""; item.alt.value = item.image.alt; });
+        status.textContent = "";
+        editor.showModal();
+      });
+      byId("close-editor").addEventListener("click", () => editor.close());
+      async function loadPhoto(file,maxSize) {
+        if (!["image/png","image/jpeg","image/webp"].includes(file.type)) throw new Error("Choose a JPG, PNG, or WebP image.");
+        if (file.size > 24 * 1024 * 1024) throw new Error("Choose an image smaller than 24 MB.");
+        const url = URL.createObjectURL(file);
+        try {
+          const photo = new Image();
+          photo.src = url;
+          await photo.decode();
+          const scale = Math.min(1,maxSize/Math.max(photo.naturalWidth,photo.naturalHeight));
+          const buffer = document.createElement("canvas");
+          buffer.width = Math.max(1, Math.round(photo.naturalWidth*scale));
+          buffer.height = Math.max(1, Math.round(photo.naturalHeight*scale));
+          buffer.getContext("2d").drawImage(photo,0,0,buffer.width,buffer.height);
+          return buffer.toDataURL("image/webp", .93);
+        } finally {
+          URL.revokeObjectURL(url);
+        }
+      }
+      function saveHTML() {
+        const copy = new DOMParser().parseFromString(originalHTML,"text/html");
+        for (const { image } of portraits) {
+          const target = copy.getElementById(image.id);
+          target.setAttribute("src", image.getAttribute("src"));
+          target.alt = image.alt;
+        }
+        const file = new Blob(["<!doctype html>\n", copy.documentElement.outerHTML], { type: "text/html" });
+        const url = URL.createObjectURL(file);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "index.html";
+        document.body.append(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 30000);
+      }
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const save = event.submitter?.value === "save";
+        const controls = Array.from(form.elements);
+        controls.forEach((control) => { control.disabled = true; });
+        status.textContent = "Preparing photos…";
+        try {
+          const sources = await Promise.all(portraits.map(({ file, image, maxSize }) =>
+            file.files[0] ? loadPhoto(file.files[0], maxSize) : image.getAttribute("src")
+          ));
+          portraits.forEach(({ image,alt },index) => {
+            image.src = sources[index];
+            image.alt = alt.value;
+          });
+          if (save) {
+            saveHTML();
+            status.textContent = "Download started. Place index.html beside the assets folder to see your changes.";
+          } else {
+            editor.close();
+            document.querySelector(".banner").scrollIntoView({ behavior: "instant", block: "start" });
+          }
+        } catch (error) {
+          status.textContent = error instanceof Error && error.name !== "EncodingError"
+            ? error.message : "This image could not be opened. Try another JPG, PNG, or WebP file.";
+        } finally {
+          controls.forEach((control) => { control.disabled = false; });
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
