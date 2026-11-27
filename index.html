@@ -79,7 +79,7 @@
     .rule.short { background: linear-gradient(90deg,var(--divider-color),transparent); }
     .rule.short::before, .rule.long::after { content: ""; position: absolute; left: 0; top: 50%; transform: translate(-50%,-50%) rotate(45deg); width: 6px; height: 6px; background: var(--divider-color); }
     .rule.long::after { left: 50%; }
-    .portrait { width: 100%; padding: 6px; margin-top: clamp(-64px,-4vw,-32px); border: 1px solid #a68c56; border-radius: 9px; background: #171814; box-shadow: 0 5px 19px #08090780; }
+    .portrait { width: 100%; padding: 8px; margin-top: clamp(-64px,-4vw,-32px); border: 2px solid #a68c56; border-radius: 9px; background: #171814; box-shadow: 0 5px 19px #08090780; }
     .portrait img { width: 100%; transform: scale(1.1); height: auto; aspect-ratio: 1/1; object-fit: cover; object-position: center 35%; border-radius: 4px; filter: none; } /* Remove the filter for full colour. */
     /* The page has ONE scrollbar. A shorter column rests when its bottom comes into view. */
     .columns { display: grid; grid-template-columns: minmax(0,var(--left-column)) minmax(0,var(--right-column)); gap: clamp(18px,2.3vw,37px); align-items: start; padding-top: 5px; }
