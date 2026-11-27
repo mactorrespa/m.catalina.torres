@@ -13,6 +13,31 @@
     Keep the pictures, fonts and CV beside index.html, using the filenames in this page.
     All content, styles, and interaction code live in this file. No build is needed.
   -->
+  .identity {
+  display: flex;
+  direction: ltr;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 18px; /* Space between your portrait and your name */
+}
+
+.identity .portrait {
+  order: -1; /* Put the portrait first */
+  flex: 0 0 clamp(65px, 10vw, 148px);
+  min-width: 0;
+}
+
+.identity .name-block {
+  text-align: left;
+}
+
+.identity > .rule:not(.long) {
+  display: none;
+}
+
+.identity .rule.long {
+  flex: 1; /* Extend the gold line after your name */
+}
   <style>
     /* EDIT • Local typefaces. The final names in each font stack also work offline. */
     @font-face { font-family: Cormorant; src: url("cormorant-medium.woff") format("woff"); font-style: normal; font-weight: 500; font-display: swap; }
@@ -231,7 +256,7 @@
         <!-- EDIT • BIOGRAPHY: write in the first person. Links and mathematical subscripts work in all sections. -->
         <section id="about" class="panel bio" aria-labelledby="about-heading">
           <div class="panel-head"><svg class="icon" aria-hidden="true"><use href="#quill"/></svg><h2 id="about-heading">About me</h2></div>
-          <p>I’m a PhD candidate in mathematics at the <a href="https://www.ub.edu/">University of Barcelona</a>, working with Joan Bagaria. I’m based in Vienna, where I’m a project assistant in the Computational Logic group at <a href="https://www.tuwien.at/en/">TU Wien</a>.</p>
+          <p>I’m a PhD candidate in Mathematics and Computer Science at the <a href="https://www.ub.edu/">University of Barcelona</a>, my PhD advisor is Joan Bagaria. I’m based in Vienna, where I’m a project assistant in the Computational Logic group at <a href="https://www.tuwien.at/en/">TU Wien</a> under the supervision of Juan Aguilera.</p>
           <p>My research is in set theory. I study higher stationarity on two cardinals, how stationary sets reflect, and how these questions connect to large cardinals and to topology.</p>
         </section>
 
@@ -239,11 +264,11 @@
         <section id="education" class="panel" aria-labelledby="education-heading">
           <div class="panel-head"><svg class="icon" aria-hidden="true"><use href="#grad"/></svg><h2 id="education-heading">Education</h2></div>
           <ol class="record-list">
-            <li class="entry"><span class="date">2022 — Present</span><h3>PhD in Mathematics and Computer Science</h3><p>University of Barcelona, Spain</p><p class="support">Thesis: Infinite Combinatorics on <span class="math">𝒫<sub>κ</sub>(λ)</span>. Advisor: Joan Bagaria Pigrau.</p></li>
-            <li class="entry"><span class="date">2020 — 2022</span><h3>Master’s in Pure and Applied Logic</h3><p>University of Barcelona, Spain</p><p class="support">Thesis: <a href="https://diposit.ub.edu/dspace/bitstream/2445/189745/1/TFM_Catalina_Torres.pdf">Stationary Reflection on <span class="math">𝒫<sub>κ</sub>(λ)</span></a>. Advisor: Joan Bagaria Pigrau.</p></li>
-            <li class="entry"><span class="date">2012 — 2018</span><h3>Bachelor’s in Mathematics</h3><p>National University of Colombia, Bogotá</p><p class="support">Thesis: Knot Classification through Counting Finite Group Homomorphisms. Advisor: Mauricio López Hernández.</p></li>
+            <li class="entry"><span class="date">Present</span><h3>PhD in Mathematics and Computer Science</h3><p>University of Barcelona, Spain</p><p class="support">Thesis: Infinite Combinatorics on <span class="math">𝒫<sub>κ</sub>(λ)</span>. Advisor: Joan Bagaria Pigrau.</p></li>
+            <li class="entry"><span class="date">2022</span><h3>Master’s in Pure and Applied Logic</h3><p>University of Barcelona, Spain</p><p class="support">Thesis: <a href="https://diposit.ub.edu/dspace/bitstream/2445/189745/1/TFM_Catalina_Torres.pdf">Stationary Reflection on <span class="math">𝒫<sub>κ</sub>(λ)</span></a>. Advisor: Joan Bagaria Pigrau.</p></li>
+            <li class="entry"><span class="date"></span><h3>Bachelor’s in Mathematics</h3><p>National University of Colombia, Bogotá</p><p class="support">Thesis: Knot Classification through Counting Finite Group Homomorphisms. Advisor: Mauricio López Hernández.</p></li>
           </ol>
-          <details class="more"><summary>Research stays &amp; funding</summary>
+          <details class="more"><summary>Research stays </summary>
             <ul class="compact slim">
               <li><b>Vienna, 2025–26.</b> Modal logics and generalised stationarity with Juan Aguilera at TU Wien, supported by an Ernst Mach Grant worldwide.</li>
               <li><b>Tokyo, 2025.</b> Two visits with Hiroshi Sakai at the University of Tokyo on higher stationarity and its consistency strength.</li>
