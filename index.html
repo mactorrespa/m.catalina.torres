@@ -13,31 +13,7 @@
     Keep the pictures, fonts and CV beside index.html, using the filenames in this page.
     All content, styles, and interaction code live in this file. No build is needed.
   -->
-  .identity {
-  display: flex;
-  direction: ltr;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 18px; /* Space between your portrait and your name */
-}
 
-.identity .portrait {
-  order: -1; /* Put the portrait first */
-  flex: 0 0 clamp(65px, 10vw, 148px);
-  min-width: 0;
-}
-
-.identity .name-block {
-  text-align: left;
-}
-
-.identity > .rule:not(.long) {
-  display: none;
-}
-
-.identity .rule.long {
-  flex: 1; /* Extend the gold line after your name */
-}
   <style>
     /* EDIT • Local typefaces. The final names in each font stack also work offline. */
     @font-face { font-family: Cormorant; src: url("cormorant-medium.woff") format("woff"); font-style: normal; font-weight: 500; font-display: swap; }
@@ -206,6 +182,31 @@
       html { scroll-behavior: auto; }
       .banner img { transform: none; }
     }
+      .identity {
+  display: flex;
+  direction: ltr;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 18px; /* Space between your portrait and your name */
+}
+
+.identity .portrait {
+  order: -1; /* Put the portrait first */
+  flex: 0 0 clamp(65px, 10vw, 148px);
+  min-width: 0;
+}
+
+.identity .name-block {
+  text-align: left;
+}
+
+.identity > .rule:not(.long) {
+  display: none;
+}
+
+.identity .rule.long {
+  flex: 1; /* Extend the gold line after your name */
+}
   </style>
 </head>
 <body id="top">
