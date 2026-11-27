@@ -68,7 +68,7 @@
     .menu-toggle { display: none; }
     /* EDIT • Banner height, edge fade, rounding, and the image's focal point. */
     .banner { margin-top: clamp(16px, 2vw, 32px); height: clamp(235px, 23vw, 333px); position: relative; overflow: hidden; border-radius: 12px; background: #141512; box-shadow: 0 0 0 1px rgba(176,152,99,.19); }
-    .banner img { width: 100%; height: calc(100% + 64px); max-width: none; position: absolute; inset: -4px 0 auto; object-fit: cover; object-position: 50% 32%; transform: translateY(var(--banner-offset,0px)); }
+    .banner img { width: 100%; height: calc(100% + 64px); max-width: none; position: absolute; inset: -16px 0 auto; object-fit: cover; object-position: 50% 32%; transform: translateY(var(--banner-offset,0px)); }
     .banner::after { content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none; background: linear-gradient(90deg,rgba(16,17,15,.78),transparent 11%,transparent 89%,rgba(16,17,15,.78)),linear-gradient(0deg,rgba(16,17,15,.85),transparent 19%,transparent 90%,rgba(16,17,15,.3)); }
     .identity { position: relative; display: grid; grid-template-columns: clamp(12px,4.4vw,76px) minmax(0,max-content) minmax(12px,1fr) clamp(90px,10.2vw,148px) clamp(10px,3vw,44px); align-items: center; column-gap: clamp(10px,2vw,32px); margin-top: 8px; min-height: clamp(120px,10.2vw,154px); }
     .name-block { padding-block: 10px 18px; }
@@ -213,7 +213,7 @@
   </header>
   <main class="shell">
     <!-- EDIT • BANNER: replace the image path and its alt text. Scroll motion is set in the script. -->
-    <div class="banner"><img id="banner-photo" src="night-landscape.webp" alt="An engraved mountain range and lake beneath a crescent moon and a starry sky" fetchpriority="high"></div>
+    <div class="banner"><img id="banner-photo" src="night-landscape.webp" alt="Views from my office in TU Wien" fetchpriority="high"></div>
     <div class="identity">
       <span class="rule short" aria-hidden="true"></span>
       <div class="name-block">
@@ -428,8 +428,7 @@
       let ticking = false;
       function updateScroll() {
         // EDIT • Increase 0.09 for more parallax. The 30px limit keeps edges covered.
-        const shift = reduceMotion.matches ? 0 : Math.min(30, Math.max(0, window.scrollY * .09));
-        banner.style.setProperty("--banner-offset", (-shift).toFixed(1) + "px");
+        const shift = reduceMotion.matches ? 0 : Math.min(45, Math.max(0, window.scrollY * 0.15));        banner.style.setProperty("--banner-offset", (-shift).toFixed(1) + "px");
         const atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
         let active = atBottom ? sections.length - 1 : 0;
         if (!atBottom) {
