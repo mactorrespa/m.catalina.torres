@@ -81,7 +81,7 @@
     .rule.short::before, .rule.long::after { content: ""; position: absolute; left: 0; top: 50%; transform: translate(-50%,-50%) rotate(45deg); width: 6px; height: 6px; background: var(--divider-color); }
     .rule.long::after { left: 50%; }
     .portrait { width: 100%; padding: 8px; margin-top: clamp(-64px,-4vw,-32px); border: 2px solid #a68c56; border-radius: 9px; background: #171814; box-shadow: 0 5px 19px #08090780; }
-    .portrait img { width: 100%; transform: scale(1.1); height: auto; aspect-ratio: 1/1; object-fit: cover; object-position: center 35%; border-radius: 4px; filter: none; } /* Remove the filter for full colour. */
+    .portrait img { width: 100%; transform: scale(1.0); height: auto; aspect-ratio: 1/1; object-fit: cover; object-position: center 35%; border-radius: 4px; filter: none; } /* Remove the filter for full colour. */
     /* The page has ONE scrollbar. A shorter column rests when its bottom comes into view. */
     .columns { display: grid; grid-template-columns: minmax(0,var(--left-column)) minmax(0,var(--right-column)); gap: clamp(18px,2.3vw,37px); align-items: start; padding-top: 5px; }
     .academic, .notebook { min-width: 0; display: grid; gap: 20px; align-self: start; }
@@ -318,20 +318,29 @@
            or an article for a text link. Add as many as you like. -->
       <aside class="notebook" aria-labelledby="notebook-heading">
         <div class="notes-head"><svg class="icon" aria-hidden="true"><use href="#book"/></svg><h2 id="notebook-heading">Field notes</h2></div>
-        <figure class="note">
-          <img src="vienna-opera.webp" width="1000" height="745" alt="Horse-drawn trams passing the Vienna State Opera in a nineteenth-century photochrom" style="height:auto; aspect-ratio:2.15; object-position:50% 47%">
-          <figcaption><span class="eyebrow">Vienna, Austria</span><h3><a href="https://www.loc.gov/item/2002708423/">Along the Ringstrasse</a></h3>
-            <p>A view of the State Opera near TU Wien, in a photochrom from around 1900.</p>
-            <a class="note-link" href="https://www.loc.gov/item/2002708423/">View archival photograph</a>
-          </figcaption>
-        </figure>
-        <figure class="note print">
-          <img src="saruwaka-night.webp" width="657" height="1000" loading="lazy" alt="A full moon above pedestrians and theatre rooftops in Hiroshige’s print of Edo">
-          <figcaption><span class="eyebrow">Tokyo, Japan</span><h3><a href="https://www.loc.gov/item/2008660961/">An evening in Edo</a></h3>
-            <p>Utagawa Hiroshige’s <i>Night View of Saruwaka-machi</i> (1856), from his series of views of the city now known as Tokyo.</p>
-            <a class="note-link" href="https://www.loc.gov/item/2008660961/">View woodblock print</a>
-          </figcaption>
-        </figure>
+<figure class="note">
+  <img src="vienna-sky.jpg"
+       alt="The sky beside the TU Wien building in Vienna"
+       style="height: auto; aspect-ratio: auto;">
+  <figcaption>
+    <span class="eyebrow">Vienna, Austria</span>
+    <h3>Looking up in Vienna</h3>
+    <p>A little piece of the Vienna sky, photographed just outside TU Wien.</p>
+  </figcaption>
+</figure>
+
+<figure class="note">
+  <img src="tokyo-apricots.jpg"
+       alt="Fallen apricots on the ground at the University of Tokyo"
+       loading="lazy"
+       style="height: auto; aspect-ratio: auto;">
+  <figcaption>
+    <span class="eyebrow">Tokyo, Japan</span>
+    <h3>Looking down in Tokyo</h3>
+    <p>On the University of Tokyo campus, a few fallen apricots
+       were enough to tell you it was summer.</p>
+  </figcaption>
+</figure>
         <article class="note note-text">
           <span class="eyebrow">Community</span><h3><a href="https://www.tuwien.at/en/mg/femma">fem*MA at TU Wien</a></h3>
           <p>I’m part of the PR and newsletter team for the network of women* in mathematics at TU Wien.</p>
